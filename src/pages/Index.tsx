@@ -158,29 +158,28 @@ export default function Index() {
             <p className="text-muted-foreground text-lg">Получи преимущества и помоги развитию сервера</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
-              { name: 'BRONZE', price: '299₽', color: 'border-orange-700', features: ['Уникальный ник', 'Бонус к зарплате +25%', 'Доступ к VIP чату'] },
-              { name: 'SILVER', price: '599₽', color: 'border-gray-400', features: ['Все из BRONZE', 'Бонус к зарплате +50%', 'Приоритет в очереди', 'Уникальные автомобили'] },
-              { name: 'GOLD', price: '999₽', color: 'border-yellow-500', features: ['Все из SILVER', 'Бонус к зарплате +100%', 'Личный гараж', 'Эксклюзивный транспорт', 'Особая метка в чате'] }
-            ].map((tier, index) => (
-              <Card key={index} className={`border-2 ${tier.color} hover:scale-105 transition-transform`}>
+              { name: 'Скин на выбор', price: '300₽', icon: 'User', color: 'border-primary/50', desc: 'Уникальный скин персонажа' },
+              { name: 'Игровая валюта', price: '500₽', icon: 'Coins', color: 'border-secondary/50', desc: '150 000 000 внутриигровых денег', value: '150 000 000' },
+              { name: 'Автомобиль на выбор', price: '400₽', icon: 'Car', color: 'border-primary/50', desc: 'Любой автомобиль из каталога' },
+              { name: 'Донат валюта', price: '400₽', icon: 'Gem', color: 'border-secondary/50', desc: '5000 донат-валюты', value: '5000 DC' }
+            ].map((item, index) => (
+              <Card key={index} className={`border-2 ${item.color} hover:scale-105 transition-transform`}>
                 <CardHeader className="text-center">
-                  <CardTitle className="text-2xl font-black mb-2">{tier.name}</CardTitle>
-                  <div className="text-4xl font-black text-primary">{tier.price}</div>
-                  <CardDescription>/ месяц</CardDescription>
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Icon name={item.icon as any} size={32} className="text-primary" />
+                  </div>
+                  <CardTitle className="text-xl font-black mb-2">{item.name}</CardTitle>
+                  <div className="text-3xl font-black text-primary mb-1">{item.price}</div>
+                  {item.value && (
+                    <Badge className="bg-secondary/20 text-secondary font-bold">{item.value}</Badge>
+                  )}
                 </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    {tier.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <Icon name="Check" size={20} className="text-primary mt-0.5 flex-shrink-0" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Button className="w-full mt-6 bg-primary hover:bg-primary/90 font-bold">
-                    Приобрести
+                <CardContent className="text-center">
+                  <p className="text-sm text-muted-foreground mb-4">{item.desc}</p>
+                  <Button className="w-full bg-primary hover:bg-primary/90 font-bold">
+                    Купить
                   </Button>
                 </CardContent>
               </Card>
