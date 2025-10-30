@@ -223,9 +223,7 @@ export default function Index() {
             
             <TabsContent value="all" className="space-y-6">
               {[
-                { date: '25 окт 2024', title: 'Масштабное обновление 2.0', desc: 'Новая система фракций, обновленная карта и множество улучшений', badge: 'Обновление' },
-                { date: '20 окт 2024', title: 'Хэллоуин ивент 2024', desc: 'Специальное мероприятие с уникальными наградами', badge: 'Событие' },
-                { date: '15 окт 2024', title: 'Новый сервер Phoenix', desc: 'Открытие третьего сервера для комфортной игры', badge: 'Новость' }
+                { date: '25 окт 2024', title: 'Масштабное обновление 2.0', desc: 'Новая система фракций, обновленная карта и множество улучшений', badge: 'Обновление' }
               ].map((news, index) => (
                 <Card key={index} className="hover:border-primary transition-colors border-2">
                   <CardHeader>
