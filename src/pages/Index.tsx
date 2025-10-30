@@ -3,15 +3,32 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import Icon from '@/components/ui/icon';
 
 export default function Index() {
   const [activeSection, setActiveSection] = useState('home');
+  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [paymentMethod, setPaymentMethod] = useState('card');
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleBuyClick = (item: any) => {
+    setSelectedItem(item);
+    setIsPaymentOpen(true);
+  };
+
+  const handlePayment = () => {
+    alert(`Оплата ${selectedItem?.name} через ${paymentMethod === 'card' ? 'карту' : 'СБП'} на сумму ${selectedItem?.price}`);
+    setIsPaymentOpen(false);
   };
 
   return (
@@ -178,7 +195,7 @@ export default function Index() {
                 </CardHeader>
                 <CardContent className="text-center">
                   <p className="text-sm text-muted-foreground mb-4">{item.desc}</p>
-                  <Button className="w-full bg-primary hover:bg-primary/90 font-bold">
+                  <Button onClick={() => handleBuyClick(item)} className="w-full bg-primary hover:bg-primary/90 font-bold">
                     Купить
                   </Button>
                 </CardContent>
@@ -288,6 +305,112 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      <Dialog open={isPaymentOpen} onOpenChange={setIsPaymentOpen}>
+        <DialogContent className="sm:max-w-md bg-card border-2 border-primary/30">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-black">Оплата</DialogTitle>
+            <DialogDescription>
+              {selectedItem && (
+                <div className="flex items-center justify-between py-4 border-b border-border">
+                  <span className="text-lg">{selectedItem.name}</span>
+                  <span className="text-2xl font-black text-primary">{selectedItem.price}</span>
+                </div>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-6 py-4">
+            <div className="space-y-3">
+              <Label className="text-base font-bold">Способ оплаты</Label>
+              <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod} className="space-y-3">
+                <div className="flex items-center space-x-3 p-4 rounded-lg border-2 border-border hover:border-primary transition-colors cursor-pointer">
+                  <RadioGroupItem value="card" id="card" />
+                  <Label htmlFor="card" className="flex items-center gap-3 cursor-pointer flex-1">
+                    <Icon name="CreditCard" size={24} className="text-primary" />
+                    <div>
+                      <div className="font-bold">Банковская карта</div>
+                      <div className="text-sm text-muted-foreground">Visa, Mastercard, МИР</div>
+                    </div>
+                  </Label>
+                </div>
+                
+                <div className="flex items-center space-x-3 p-4 rounded-lg border-2 border-border hover:border-primary transition-colors cursor-pointer">
+                  <RadioGroupItem value="sbp" id="sbp" />
+                  <Label htmlFor="sbp" className="flex items-center gap-3 cursor-pointer flex-1">
+                    <Icon name="Smartphone" size={24} className="text-primary" />
+                    <div>
+                      <div className="font-bold">СБП</div>
+                      <div className="text-sm text-muted-foreground">Система быстрых платежей</div>
+                    </div>
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            {paymentMethod === 'card' && (
+              <div className="space-y-4 animate-fade-in">
+                <div className="space-y-2">
+                  <Label htmlFor="cardNumber">Номер карты</Label>
+                  <Input 
+                    id="cardNumber" 
+                    placeholder="0000 0000 0000 0000" 
+                    className="border-2"
+                    maxLength={19}
+                  />
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="expiry">Срок действия</Label>
+                    <Input 
+                      id="expiry" 
+                      placeholder="MM/YY" 
+                      className="border-2"
+                      maxLength={5}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="cvv">CVV</Label>
+                    <Input 
+                      id="cvv" 
+                      placeholder="123" 
+                      type="password"
+                      className="border-2"
+                      maxLength={3}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {paymentMethod === 'sbp' && (
+              <div className="space-y-4 animate-fade-in">
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Номер телефона</Label>
+                  <Input 
+                    id="phone" 
+                    placeholder="+7 (999) 999-99-99" 
+                    className="border-2"
+                  />
+                </div>
+                <div className="text-sm text-muted-foreground p-4 bg-muted/20 rounded-lg">
+                  <Icon name="Info" size={16} className="inline mr-2" />
+                  После нажатия кнопки откроется приложение вашего банка
+                </div>
+              </div>
+            )}
+
+            <Button 
+              onClick={handlePayment} 
+              className="w-full h-12 bg-primary hover:bg-primary/90 font-bold text-lg"
+            >
+              <Icon name="Lock" size={20} className="mr-2" />
+              Оплатить {selectedItem?.price}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <footer className="py-12 px-4 border-t border-border mt-20">
         <div className="container mx-auto">
