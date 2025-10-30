@@ -350,35 +350,64 @@ export default function Index() {
 
             {paymentMethod === 'card' && (
               <div className="space-y-4 animate-fade-in">
-                <div className="space-y-2">
-                  <Label htmlFor="cardNumber">Номер карты</Label>
-                  <Input 
-                    id="cardNumber" 
-                    placeholder="0000 0000 0000 0000" 
-                    className="border-2"
-                    maxLength={19}
-                  />
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="expiry">Срок действия</Label>
-                    <Input 
-                      id="expiry" 
-                      placeholder="MM/YY" 
-                      className="border-2"
-                      maxLength={5}
-                    />
+                <div className="p-6 bg-primary/5 border-2 border-primary/30 rounded-lg space-y-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Icon name="Landmark" size={20} className="text-primary" />
+                    <span className="font-bold">Реквизиты для перевода</span>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="cvv">CVV</Label>
-                    <Input 
-                      id="cvv" 
-                      placeholder="123" 
-                      type="password"
-                      className="border-2"
-                      maxLength={3}
-                    />
+                  
+                  <div className="space-y-3">
+                    <div>
+                      <Label className="text-xs text-muted-foreground">Номер карты</Label>
+                      <div className="flex items-center gap-2 mt-1">
+                        <code className="text-lg font-bold text-primary bg-background px-3 py-2 rounded border flex-1">
+                          2202 2068 4533 6432
+                        </code>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            navigator.clipboard.writeText('2202206845336432');
+                            alert('Номер карты скопирован!');
+                          }}
+                          className="border-2"
+                        >
+                          <Icon name="Copy" size={16} />
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label className="text-xs text-muted-foreground">Получатель</Label>
+                      <div className="flex items-center gap-2 mt-1">
+                        <code className="text-base font-bold bg-background px-3 py-2 rounded border flex-1">
+                          Александр Николаевич Т
+                        </code>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            navigator.clipboard.writeText('Александр Николаевич Т');
+                            alert('ФИО скопировано!');
+                          }}
+                          className="border-2"
+                        >
+                          <Icon name="Copy" size={16} />
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label className="text-xs text-muted-foreground">Сумма к оплате</Label>
+                      <div className="text-2xl font-black text-primary mt-1">
+                        {selectedItem?.price}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="text-sm text-muted-foreground p-3 bg-background rounded-lg border">
+                    <Icon name="Info" size={16} className="inline mr-2" />
+                    После перевода напишите в поддержку с подтверждением платежа
                   </div>
                 </div>
               </div>
@@ -386,17 +415,51 @@ export default function Index() {
 
             {paymentMethod === 'sbp' && (
               <div className="space-y-4 animate-fade-in">
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Номер телефона</Label>
-                  <Input 
-                    id="phone" 
-                    placeholder="+7 (999) 999-99-99" 
-                    className="border-2"
-                  />
-                </div>
-                <div className="text-sm text-muted-foreground p-4 bg-muted/20 rounded-lg">
-                  <Icon name="Info" size={16} className="inline mr-2" />
-                  После нажатия кнопки откроется приложение вашего банка
+                <div className="p-6 bg-primary/5 border-2 border-primary/30 rounded-lg space-y-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Icon name="Smartphone" size={20} className="text-primary" />
+                    <span className="font-bold">Перевод по номеру телефона</span>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div>
+                      <Label className="text-xs text-muted-foreground">Номер телефона (СБП)</Label>
+                      <div className="flex items-center gap-2 mt-1">
+                        <code className="text-lg font-bold text-primary bg-background px-3 py-2 rounded border flex-1">
+                          +7 (XXX) XXX-XX-XX
+                        </code>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            alert('Укажите номер телефона для СБП');
+                          }}
+                          className="border-2"
+                        >
+                          <Icon name="Copy" size={16} />
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label className="text-xs text-muted-foreground">Получатель</Label>
+                      <div className="text-base font-bold bg-background px-3 py-2 rounded border">
+                        Александр Николаевич Т
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label className="text-xs text-muted-foreground">Сумма к оплате</Label>
+                      <div className="text-2xl font-black text-primary mt-1">
+                        {selectedItem?.price}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="text-sm text-muted-foreground p-3 bg-background rounded-lg border">
+                    <Icon name="Info" size={16} className="inline mr-2" />
+                    Откройте приложение банка, выберите СБП и переведите по номеру телефона
+                  </div>
                 </div>
               </div>
             )}
@@ -405,8 +468,8 @@ export default function Index() {
               onClick={handlePayment} 
               className="w-full h-12 bg-primary hover:bg-primary/90 font-bold text-lg"
             >
-              <Icon name="Lock" size={20} className="mr-2" />
-              Оплатить {selectedItem?.price}
+              <Icon name="Check" size={20} className="mr-2" />
+              Я перевёл деньги
             </Button>
           </div>
         </DialogContent>
