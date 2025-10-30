@@ -63,9 +63,11 @@ export default function Index() {
               ))}
             </div>
 
-            <Button size="lg" className="hidden md:flex bg-primary hover:bg-primary/90 text-primary-foreground font-bold">
-              <Icon name="Download" size={20} className="mr-2" />
-              Скачать лаунчер
+            <Button size="lg" className="hidden md:flex bg-primary hover:bg-primary/90 text-primary-foreground font-bold" asChild>
+              <a href="https://play.google.com" target="_blank" rel="noopener noreferrer">
+                <Icon name="Download" size={20} className="mr-2" />
+                Скачать игру с Google
+              </a>
             </Button>
           </div>
         </div>
@@ -76,7 +78,7 @@ export default function Index() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 animate-fade-in">
               <Badge className="bg-secondary text-secondary-foreground font-bold px-4 py-2">
-                🎮 Лучший RolePlay сервер 2024
+                🎮 Лучший RolePlay сервер 2025
               </Badge>
               <h1 className="text-5xl md:text-7xl font-black leading-tight">
                 Добро пожаловать в
@@ -86,18 +88,22 @@ export default function Index() {
                 Окунитесь в мир настоящего ролевого отыгрыша. Создайте свою историю в крупнейшем игровом сообществе MTA.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg h-14 px-8">
-                  <Icon name="Download" size={24} className="mr-2" />
-                  Скачать лаунчер
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg h-14 px-8" asChild>
+                  <a href="https://play.google.com" target="_blank" rel="noopener noreferrer">
+                    <Icon name="Download" size={24} className="mr-2" />
+                    Скачать игру с Google
+                  </a>
                 </Button>
-                <Button size="lg" variant="outline" className="font-bold text-lg h-14 px-8 border-2">
-                  <Icon name="Play" size={24} className="mr-2" />
-                  Смотреть трейлер
+                <Button size="lg" variant="outline" className="font-bold text-lg h-14 px-8 border-2" asChild>
+                  <a href="https://disk.yandex.ru" target="_blank" rel="noopener noreferrer">
+                    <Icon name="Download" size={24} className="mr-2" />
+                    Скачать игру с Яндекс
+                  </a>
                 </Button>
               </div>
               <div className="flex gap-8 pt-4">
                 <div>
-                  <div className="text-4xl font-black text-primary">5000+</div>
+                  <div className="text-4xl font-black text-primary">1000</div>
                   <div className="text-sm text-muted-foreground">Игроков онлайн</div>
                 </div>
                 <div>
@@ -105,13 +111,13 @@ export default function Index() {
                   <div className="text-sm text-muted-foreground">Работа серверов</div>
                 </div>
                 <div>
-                  <div className="text-4xl font-black text-primary">100+</div>
+                  <div className="text-4xl font-black text-primary">10</div>
                   <div className="text-sm text-muted-foreground">Уникальных работ</div>
                 </div>
               </div>
             </div>
             
-            <div className="relative">
+            <div className="relative hidden md:block">
               <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full"></div>
               <img 
                 src="https://cdn.poehali.dev/projects/03c4e8cf-6f2b-4ae9-b28b-6f40f6120246/files/4c3dc097-130f-45fa-81be-c5dd7d30f190.jpg" 
@@ -265,41 +271,35 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <Badge className="bg-primary/10 text-primary font-bold px-4 py-2 mb-4">
-              🖥️ Наши сервера
+              🖥️ Наш сервер
             </Badge>
             <h2 className="text-4xl md:text-5xl font-black mb-4">Выбери свой сервер</h2>
-            <p className="text-muted-foreground text-lg">Три игровых мира с уникальными особенностями</p>
+            <p className="text-muted-foreground text-lg">Один игровой мир с уникальными особенностями</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {[
-              { name: 'Phoenix', players: '1847/2000', status: 'online', desc: 'Основной сервер с полным функционалом' },
-              { name: 'Dragon', players: '1634/2000', status: 'online', desc: 'Сервер для опытных игроков' },
-              { name: 'Griffin', players: '521/2000', status: 'online', desc: 'Новый сервер для новичков' }
-            ].map((server, index) => (
-              <Card key={index} className="border-2 border-primary/30 hover:border-primary transition-colors">
-                <CardHeader>
-                  <div className="flex items-center justify-between mb-4">
-                    <CardTitle className="text-2xl font-black">{server.name}</CardTitle>
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
-                      <span className="text-sm font-bold text-primary">{server.status.toUpperCase()}</span>
-                    </div>
+          <div className="flex justify-center max-w-md mx-auto">
+            <Card className="border-2 border-primary/30 hover:border-primary transition-colors w-full">
+              <CardHeader>
+                <div className="flex items-center justify-between mb-4">
+                  <CardTitle className="text-2xl font-black">Ставропольский</CardTitle>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
+                    <span className="text-sm font-bold text-primary">ONLINE</span>
                   </div>
-                  <CardDescription className="text-base">{server.desc}</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Игроков онлайн:</span>
-                    <span className="font-bold text-primary">{server.players}</span>
-                  </div>
-                  <Button className="w-full bg-primary hover:bg-primary/90 font-bold">
-                    <Icon name="LogIn" size={20} className="mr-2" />
-                    Подключиться
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+                <CardDescription className="text-base">Основной сервер с полным функционалом</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Игроков онлайн:</span>
+                  <span className="font-bold text-primary">1000/2000</span>
+                </div>
+                <Button className="w-full bg-primary hover:bg-primary/90 font-bold">
+                  <Icon name="LogIn" size={20} className="mr-2" />
+                  Подключиться
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -424,13 +424,14 @@ export default function Index() {
                       <Label className="text-xs text-muted-foreground">Номер телефона (СБП)</Label>
                       <div className="flex items-center gap-2 mt-1">
                         <code className="text-lg font-bold text-primary bg-background px-3 py-2 rounded border flex-1">
-                          +7 (XXX) XXX-XX-XX
+                          +7 900 949 38 59
                         </code>
                         <Button
                           size="sm"
                           variant="outline"
                           onClick={() => {
-                            alert('Укажите номер телефона для СБП');
+                            navigator.clipboard.writeText('+79009493859');
+                            alert('Номер телефона скопирован!');
                           }}
                           className="border-2"
                         >
@@ -483,7 +484,7 @@ export default function Index() {
                 </div>
                 <span className="text-xl font-black">WORLD RP</span>
               </div>
-              <p className="text-sm text-muted-foreground">Лучший MTA RolePlay проект 2024 года</p>
+              <p className="text-sm text-muted-foreground">Лучший MTA RolePlay проект 2025 года</p>
             </div>
             
             <div>
@@ -499,7 +500,7 @@ export default function Index() {
             <div>
               <h3 className="font-bold mb-4">Сообщество</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary">Discord</a></li>
+                <li><a href="https://discord.gg/c2C7yZuWDZ" target="_blank" rel="noopener noreferrer" className="hover:text-primary">Discord</a></li>
                 <li><a href="#" className="hover:text-primary">VK</a></li>
                 <li><a href="#" className="hover:text-primary">YouTube</a></li>
                 <li><a href="#" className="hover:text-primary">Telegram</a></li>
@@ -510,7 +511,7 @@ export default function Index() {
               <h3 className="font-bold mb-4">Контакты</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>support@worldrp.ru</li>
-                <li>© 2024 WORLD RP</li>
+                <li>© 2025 WORLD RP</li>
               </ul>
             </div>
           </div>
